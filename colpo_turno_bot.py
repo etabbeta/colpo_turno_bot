@@ -12,8 +12,8 @@ import os
 from functools import wraps
 
 from apscheduler.schedulers.background import BackgroundScheduler
-from telegram import Update, ParseMode
-from telegram.ext import Updater, CommandHandler, CallbackContext, MessageHandler, Filters
+ telegram import Update, ParseMode
+from telegram.ext import Application, CommandHandler, MessageHandler, ContextTypes, filters
 
 # ---------- CONFIG ----------
 TELEGRAM_BOT_TOKEN = os.getenv("BOT_TOKEN")
@@ -400,8 +400,8 @@ def job_send_today(context: CallbackContext):
 
 # ---------- MAIN ----------
 def main():
-    updater = Updater(token=TELEGRAM_BOT_TOKEN, use_context=True)
-    dp = updater.dispatcher
+    application = Application.builder().token(TELEGRAM_BOT_TOKEN).build()
+dp = application
 
     # commands
     dp.add_handler(CommandHandler("start", start))
@@ -421,10 +421,9 @@ def main():
     scheduler.start()
 
     # start polling
-    updater.start_polling()
-    logger.info("ColpoTurno Bot avviato.")
-    updater.idle()
+    application.run_polling()
 
 if __name__ == "__main__":
     main()
+
 
