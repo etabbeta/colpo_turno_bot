@@ -16,9 +16,11 @@ from telegram import Update, ParseMode
 from telegram.ext import Updater, CommandHandler, CallbackContext, MessageHandler, Filters
 
 # ---------- CONFIG ----------
-TELEGRAM_BOT_TOKEN = "8304535352:AAEr1Cmjct1__bW-twXyy7z0bgDIZW0oU1Q"
-# se vuoi mettere subito l'id del gruppo mettilo qui, altrimenti lascialo None e usa /get_group_id nel gruppo
-GROUP_CHAT_ID = -970931242
+TELEGRAM_BOT_TOKEN = os.getenv("BOT_TOKEN")
+GROUP_CHAT_ID = os.getenv("GROUP_CHAT_ID")
+
+if GROUP_CHAT_ID is not None:
+    GROUP_CHAT_ID = int(GROUP_CHAT_ID)
 
 DATA_DIR = "data_colpoturno"
 ROTATIONS_FILE = os.path.join(DATA_DIR, "rotazioni.json")
@@ -425,3 +427,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
